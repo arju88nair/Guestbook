@@ -21,7 +21,13 @@ class UserController extends \SessionAbstract
 
     public function index()
     {
-        $view = new \View('index');
+        $view = new \View('register');
         $view->assign('variablename', 'variable content');
+    }
+
+    public function doRegister()
+    {
+        echo "dsf";
+die;
     }
 }

@@ -8,8 +8,11 @@ $router = new Router(new Request);
 
 $router->get('/', function () {
     $userController=new \controllers\UserController();
-
     return $userController->index();
 });
 
+$router->post('/register', function () {
+    $userController=new \controllers\UserController();
+    return $userController->doRegister();
+});
 
