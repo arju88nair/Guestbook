@@ -7,6 +7,10 @@ class View
 
     private $render = FALSE;
 
+    /**
+     * View constructor.
+     * @param $template
+     */
     public function __construct($template)
     {
         try {
@@ -22,11 +26,19 @@ class View
         }
     }
 
+    /**
+     * @param $variable
+     * @param $value
+     */
+
     public function assign($variable, $value)
     {
         $this->data[$variable] = $value;
     }
 
+    /**
+     * View destructor
+     */
     public function __destruct()
     {
         extract($this->data);
