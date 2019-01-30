@@ -7,6 +7,7 @@
 namespace controllers;
 include_once 'utils/ViewMain.php';
 include_once 'utils/SessionAbstract.php';
+include_once 'utils/DBConnection.php';
 
 class UserController extends \SessionAbstract
 {
@@ -18,16 +19,21 @@ class UserController extends \SessionAbstract
      */
     public function __construct()
     {
-        $this->db = mysqli_connect('127.0.0.1', 'root', '', 'Guestbook');
         parent::__construct();
     }
 
+    /**
+     * Index method for root route
+     */
     public function index()
     {
         $view = new \View('register');
         $view->assign('variablename', 'variable content');
     }
 
+    /**
+     *  Registration method for user handling
+     */
     public function doRegister()
     {
 
@@ -88,7 +94,9 @@ class UserController extends \SessionAbstract
 
     }
 
-
+    /**
+     * Login method
+     */
     public function doLogin()
     {
         $username = mysqli_real_escape_string($this->db, $_POST['user_email']);

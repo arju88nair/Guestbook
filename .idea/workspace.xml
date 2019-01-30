@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6aad7e8-61d1-4435-95f4-1de617a1a239" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/utils/DBConnection.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Views/register.php" afterPath="$PROJECT_DIR$/Views/register.php" />
       <change beforePath="$PROJECT_DIR$/controllers/UserController.php" afterPath="$PROJECT_DIR$/controllers/UserController.php" />
-      <change beforePath="$PROJECT_DIR$/resources/js/register.js" afterPath="$PROJECT_DIR$/resources/js/register.js" />
+      <change beforePath="$PROJECT_DIR$/utils/SessionAbstract.php" afterPath="$PROJECT_DIR$/utils/SessionAbstract.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,8 +29,8 @@
       <file leaf-file-name="register.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Views/register.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="193" column="82" lean-forward="false" selection-start-line="193" selection-start-column="73" selection-end-line="193" selection-end-column="82" />
+            <state relative-caret-position="282">
+              <caret line="196" column="27" lean-forward="false" selection-start-line="196" selection-start-column="27" selection-end-line="196" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -49,14 +49,25 @@
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="110" column="35" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+            <state relative-caret-position="266">
+              <caret line="97" column="19" lean-forward="false" selection-start-line="97" selection-start-column="19" selection-end-line="97" selection-end-column="19" />
               <folding>
                 <element signature="e#7#50#0#PHP" expanded="true" />
-                <marker date="1548865801631" expanded="true" signature="1579:1651" ph="SELECT * FRO... users" />
-                <marker date="1548865801631" expanded="true" signature="2322:2418" ph="INSERT INTO users... " />
-                <marker date="1548865801631" expanded="true" signature="3246:3317" ph="SELECT * FRO... users" />
+                <element signature="e#644#2829#0#PHP" expanded="false" />
+                <marker date="1548866586308" expanded="true" signature="1657:1729" ph="SELECT * FRO... users" />
+                <marker date="1548866586308" expanded="true" signature="2400:2496" ph="INSERT INTO users... " />
+                <marker date="1548866586308" expanded="true" signature="3359:3430" ph="SELECT * FRO... users" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DBConnection.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/DBConnection.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,8 +75,8 @@
       <file leaf-file-name="SessionAbstract.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/SessionAbstract.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+            <state relative-caret-position="260">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -76,9 +87,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>$password_1</find>
+      <find>$db</find>
+      <find>$this-&gt;conn</find>
     </findStrings>
     <replaceStrings>
       <replace>$password</replace>
+      <replace>$this-&gt;db</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -96,11 +110,12 @@
         <option value="$PROJECT_DIR$/Views/index.php" />
         <option value="$PROJECT_DIR$/Controllers/UserController.php" />
         <option value="$PROJECT_DIR$/utils/ViewMain.php" />
-        <option value="$PROJECT_DIR$/utils/SessionAbstract.php" />
         <option value="$PROJECT_DIR$/resources/css/register.css" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/resources/js/register.js" />
         <option value="$PROJECT_DIR$/Views/register.php" />
+        <option value="$PROJECT_DIR$/utils/DBConnection.php" />
+        <option value="$PROJECT_DIR$/utils/SessionAbstract.php" />
         <option value="$PROJECT_DIR$/controllers/UserController.php" />
       </list>
     </option>
@@ -152,8 +167,7 @@
             <path>
               <item name="Guestbook" type="b2602c69:ProjectViewProjectNode" />
               <item name="Guestbook" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="css" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="utils" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -207,12 +221,12 @@
       <updated>1548774257622</updated>
       <workItem from="1548774259474" duration="1994000" />
       <workItem from="1548821578428" duration="10477000" />
-      <workItem from="1548859737108" duration="3748000" />
+      <workItem from="1548859737108" duration="4532000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16219000" />
+    <option name="totallyTimeSpent" value="17003000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="696" extended-state="6" />
@@ -287,9 +301,10 @@
           <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
           <folding>
             <element signature="e#7#50#0#PHP" expanded="true" />
-            <marker date="1548865801631" expanded="true" signature="1579:1651" ph="SELECT * FRO... users" />
-            <marker date="1548865801631" expanded="true" signature="2322:2418" ph="INSERT INTO users... " />
-            <marker date="1548865801631" expanded="true" signature="3246:3317" ph="SELECT * FRO... users" />
+            <element signature="e#644#2829#0#PHP" expanded="false" />
+            <marker date="1548866586308" expanded="true" signature="1657:1729" ph="SELECT * FRO... users" />
+            <marker date="1548866586308" expanded="true" signature="2400:2496" ph="INSERT INTO users... " />
+            <marker date="1548866586308" expanded="true" signature="3359:3430" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>
@@ -339,14 +354,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/SessionAbstract.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/css/register.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -389,21 +396,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Views/register.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="193" column="82" lean-forward="false" selection-start-line="193" selection-start-column="73" selection-end-line="193" selection-end-column="82" />
+        <state relative-caret-position="282">
+          <caret line="196" column="27" lean-forward="false" selection-start-line="196" selection-start-column="27" selection-end-line="196" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/DBConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/SessionAbstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="110" column="35" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+        <state relative-caret-position="266">
+          <caret line="97" column="19" lean-forward="false" selection-start-line="97" selection-start-column="19" selection-end-line="97" selection-end-column="19" />
           <folding>
             <element signature="e#7#50#0#PHP" expanded="true" />
-            <marker date="1548865801631" expanded="true" signature="1579:1651" ph="SELECT * FRO... users" />
-            <marker date="1548865801631" expanded="true" signature="2322:2418" ph="INSERT INTO users... " />
-            <marker date="1548865801631" expanded="true" signature="3246:3317" ph="SELECT * FRO... users" />
+            <element signature="e#644#2829#0#PHP" expanded="false" />
+            <marker date="1548866586308" expanded="true" signature="1657:1729" ph="SELECT * FRO... users" />
+            <marker date="1548866586308" expanded="true" signature="2400:2496" ph="INSERT INTO users... " />
+            <marker date="1548866586308" expanded="true" signature="3359:3430" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>

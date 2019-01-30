@@ -10,8 +10,14 @@
 
 abstract class SessionAbstract
 {
+    private $db;
+
+    /**
+     * SessionAbstract constructor. Handling construct methods like DB connection and cookie/session handling
+     */
     protected function __construct()
     {
-
+        $DbObj = new \DBConnection();
+        $this->db = $DbObj->getDbConnect();
     }
 }
