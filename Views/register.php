@@ -189,9 +189,9 @@
     <div class="tabs-content">
         <div id="signup-tab-content" class="active">
             <form class="signup-form" action="register" method="post">
-                <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
-                <input type="text" class="input" id="user_name" autocomplete="off" placeholder="Username">
-                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+                <input type="email" class="input" id="user_email"name="user_email" autocomplete="off" placeholder="Email">
+                <input type="text" class="input" id="user_name" name="user_name" autocomplete="off" placeholder="Username">
+                <input type="password" class="input" id="user_pass"name="user_pass" autocomplete="off" placeholder="Password">
                 <input type="submit" class="button" value="Sign Up">
             </form><!--.login-form-->
             <div class="help-text">
