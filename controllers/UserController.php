@@ -64,32 +64,25 @@ class UserController extends \SessionAbstract
 
 
         if ($user) { // if user exists
-            if ($user['username'] === $username) {
-                array_push($errors, "Username already exists");
-            }
-
             if ($user['email'] === $email) {
-                array_push($errors, "email already exists");
+                array_push($errors, "Email already exists");
             }
         }
 
         // Finally, register user if there are no errors in the form
         if (count($errors) == 0) {
-            echo "dd";
-            die;
-            $password = md5($password);//encrypt the password before saving in the database
 
+            $password = md5($password);//encrypt the password before saving in the database
             $query = "INSERT INTO users (username, email, password) 
   			  VALUES('$username', '$email', '$password')";
             mysqli_query($this->db, $query);
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
-//            header('location: index.php');
+            header('location: /');
         } else {
-            echo "<pre>";
-            print_r($errors);
-            echo "</pre>";
-            die;
+
+            $view = new \View('register');
+            $view->assign('data', $errors);
         }
 
     }

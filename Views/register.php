@@ -2,8 +2,11 @@
 <html>
 <head>
     <title>Web Programming using PHP</title>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <!--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
     <link rel="stylesheet" type="text/css" href="register.css"/>
     <style>
         @import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
@@ -179,7 +182,19 @@
 </head>
 <body>
 
+<?php
 
+if (count($data) > 0) {
+    foreach ($data as $error) {
+        echo "  <div class=\"alert alert-danger alert-dismissible\">
+  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+  <strong>Erorr!</strong> $error.
+</div>";
+    }
+
+
+}
+?>
 <div class="form-wrap">
     <div class="tabs">
         <h3 class="signup-tab"><a class="active" href="#signup-tab-content">Sign Up</a></h3>
@@ -189,9 +204,12 @@
     <div class="tabs-content">
         <div id="signup-tab-content" class="active">
             <form class="signup-form" action="register" method="post">
-                <input type="email" class="input" id="user_email"name="user_email" autocomplete="off" placeholder="Email">
-                <input type="text" class="input" id="user_name" name="user_name" autocomplete="off" placeholder="Username">
-                <input type="password" class="input" id="user_pass"name="user_pass" autocomplete="off" placeholder="Password">
+                <input type="email" class="input" id="user_email" name="user_email" autocomplete="off"
+                       placeholder="Email">
+                <input type="text" class="input" id="user_name" name="user_name" autocomplete="off"
+                       placeholder="Username">
+                <input type="password" class="input" id="user_pass" name="user_pass" autocomplete="off"
+                       placeholder="Password">
                 <input type="submit" class="button" value="Sign Up">
             </form><!--.login-form-->
             <div class="help-text">
