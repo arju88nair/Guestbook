@@ -19,6 +19,7 @@ class UserController extends \SessionAbstract
      */
     public function __construct()
     {
+
         parent::__construct();
     }
 
@@ -36,8 +37,14 @@ class UserController extends \SessionAbstract
      */
     public function doRegister()
     {
+       ;
+
 
         $this->db = mysqli_connect('127.0.0.1', 'root', '', 'Guestbook');
+        echo "<pre>";
+        print_r( $this->db);
+        echo "</pre>";
+        die
         // receive all input values from the form
         $username = mysqli_real_escape_string($this->db, $_POST['user_name']);
         $email = mysqli_real_escape_string($this->db, $_POST['user_email']);
