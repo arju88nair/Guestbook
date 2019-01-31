@@ -14,7 +14,7 @@ Class DBConnection
     /**
      * @return mysqli connection
      */
-    public function getDbConnect()
+    public function  getDbConnect()
     {
         $this->conn = mysqli_connect("127.0.0.1", "root", "", "Guestbook") or die("Couldn't connect");
         return $this->conn;

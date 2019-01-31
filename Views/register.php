@@ -219,12 +219,9 @@ if (count($data) > 0) {
         </div><!--.signup-tab-content-->
 
         <div id="login-tab-content">
-            <form class="login-form" action="" method="post">
-                <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username">
-                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
-                <input type="checkbox" class="checkbox" id="remember_me">
-                <label for="remember_me">Remember me</label>
-
+            <form class="login-form" action="/login" method="post">
+                <input type="text" class="input" id="user_login" name="user_email" autocomplete="off" placeholder="Email or Username">
+                <input type="password" class="input" id="user_pass" name="user_pass" autocomplete="off" placeholder="Password">
                 <input type="submit" class="button" value="Login">
             </form><!--.login-form-->
             <div class="help-text">

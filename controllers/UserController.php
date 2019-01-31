@@ -19,8 +19,9 @@ class UserController extends \SessionAbstract
      */
     public function __construct()
     {
-
         parent::__construct();
+        $DBConnection = new \DBConnection();
+        $this->db = $DBConnection->getDbConnect();
     }
 
     /**
@@ -37,14 +38,7 @@ class UserController extends \SessionAbstract
      */
     public function doRegister()
     {
-       ;
 
-
-        $this->db = mysqli_connect('127.0.0.1', 'root', '', 'Guestbook');
-        echo "<pre>";
-        print_r( $this->db);
-        echo "</pre>";
-        die
         // receive all input values from the form
         $username = mysqli_real_escape_string($this->db, $_POST['user_name']);
         $email = mysqli_real_escape_string($this->db, $_POST['user_email']);
@@ -99,10 +93,11 @@ class UserController extends \SessionAbstract
      */
     public function doLogin()
     {
-        $username = mysqli_real_escape_string($this->db, $_POST['user_email']);
+        $email = mysqli_real_escape_string($this->db, $_POST['user_email']);
         $password = mysqli_real_escape_string($this->db, $_POST['user_pass']);
+        $errors = [];
 
-        if (empty($username)) {
+        if (empty($email)) {
             array_push($errors, "Username is required");
         }
         if (empty($password)) {
@@ -111,14 +106,16 @@ class UserController extends \SessionAbstract
 
         if (count($errors) == 0) {
             $password = md5($password);
-            $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+            $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
             $results = mysqli_query($this->db, $query);
             if (mysqli_num_rows($results) == 1) {
-                $_SESSION['username'] = $username;
+                $_SESSION['username'] = $email;
                 $_SESSION['success'] = "You are now logged in";
-//                header('location: index.php');
+                header('location: /');
             } else {
                 array_push($errors, "Wrong username/password combination");
+                $view = new \View('register');
+                $view->assign('data', $errors);
             }
         }
 

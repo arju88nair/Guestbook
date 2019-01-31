@@ -3,6 +3,7 @@
 include_once 'routes/Request.php';
 include_once 'routes/Router.php';
 include_once 'controllers/UserController.php';
+include_once 'controllers/HomeController.php';
 $router = new Router(new Request);
 
 
@@ -11,8 +12,22 @@ $router->get('/', function () {
     return $userController->index();
 });
 
+$router->get('/home', function () {
+    $homeController=new \controllers\HomeController();
+    return $homeController->index();
+});
+
+
+
 $router->post('/register', function () {
     $userController=new \controllers\UserController();
     return $userController->doRegister();
 });
+
+$router->post('/login', function () {
+    $userController=new \controllers\UserController();
+    return $userController->doLogin();
+});
+
+
 

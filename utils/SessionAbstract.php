@@ -19,5 +19,7 @@ abstract class SessionAbstract
     {
         $DbObj = new \DBConnection();
         $this->db = $DbObj->getDbConnect();
+        return $this->db;
+
     }
 }
