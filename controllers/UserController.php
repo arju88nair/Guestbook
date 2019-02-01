@@ -30,7 +30,6 @@ class UserController extends \SessionAbstract
     public function index()
     {
         $view = new \View('register');
-        $view->assign('variablename', 'variable content');
     }
 
     /**
