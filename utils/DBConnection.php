@@ -39,8 +39,6 @@ Class DBConnection
             while ($row = mysqli_fetch_assoc($result)) {
                 array_push($this->dataSet, $row);
             }
-        } else {
-            echo "0 results";
         }
         return $this->dataSet;
 

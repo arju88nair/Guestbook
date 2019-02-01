@@ -27,10 +27,12 @@ class HomeController extends \SessionAbstract
 
     public function index()
     {
+
         $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=1");
-        $userPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=1");
+        $userPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and user_id=1");
         $view = new \View('home');
         $view->assign('approvedPosts', $approvedPosts);
+        $view->assign('userPosts', $userPosts);
 
 
 
