@@ -8,25 +8,30 @@ $router = new Router(new Request);
 
 
 $router->get('/', function () {
-    $userController=new \controllers\UserController();
+    $userController = new \controllers\UserController();
     return $userController->index();
 });
 
 $router->get('/home', function () {
-    $homeController=new \controllers\HomeController();
+    $homeController = new \controllers\HomeController();
     return $homeController->index();
 });
 
 
-
 $router->post('/register', function () {
-    $userController=new \controllers\UserController();
+    $userController = new \controllers\UserController();
     return $userController->doRegister();
 });
 
 $router->post('/login', function () {
-    $userController=new \controllers\UserController();
+    $userController = new \controllers\UserController();
     return $userController->doLogin();
+});
+
+
+$router->post('/addPost', function () {
+    $homeController = new \controllers\HomeController();
+    return $homeController->addPost();
 });
 
 

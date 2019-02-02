@@ -11,6 +11,7 @@ Class DBConnection
 {
     public $conn;
     public $dataSet;
+    public $sqlQuery;
 
     /**
      * @return mysqli connection
@@ -42,6 +43,34 @@ Class DBConnection
         }
         return $this->dataSet;
 
+    }
+
+
+    function insertInto($tableName, $values)
+    {
+        $i = NULL;
+
+        $this->sqlQuery = 'INSERT INTO ' . $tableName . ' VALUES (';
+        $i = 0;
+        while ($values[$i]["val"] != NULL && $values[$i]["type"] != NULL) {
+            if ($values[$i]["type"] == "char") {
+                $this->sqlQuery .= "'";
+                $this->sqlQuery .= $values[$i]["val"];
+                $this->sqlQuery .= "'";
+            } else if ($values[$i]["type"] == 'int') {
+                $this->sqlQuery .= $values[$i]["val"];
+            }
+            $i++;
+            if ($values[$i]["val"] != NULL) {
+                $this->sqlQuery .= ',';
+            }
+        }
+        $this->sqlQuery .= ')';
+        return $this->sqlQuery;die;
+        #echo $this -> sqlQuery;
+        mysqli_query($this->sqlQuery, $this->conn);
+        return $this->sqlQuery;
+        #$this -> sqlQuery = NULL;
     }
 }
 

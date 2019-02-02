@@ -5,6 +5,7 @@ class Request implements IRequest
 {
   function __construct()
   {
+
     $this->bootstrapSelf();
   }
 
