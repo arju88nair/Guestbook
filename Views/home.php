@@ -100,7 +100,7 @@ include_once 'header.php';
                     }
                     echo '
                  <div class="media">
-                <img class="mr-3" src="' . $userPosts["image"] . '" alt="Generic placeholder image">
+                <img class="mr-3" src="/var/www/html/Guestbook/' . $userPosts["image"] . '" alt="Generic placeholder image">
                 <div class="media-body">
                     <h5 class="mt-0">' . $userPosts["title"] . '</h5>
                     ' . substr($userPosts["summary"], 0, 120) . '...' . '
