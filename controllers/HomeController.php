@@ -84,4 +84,36 @@ class HomeController extends \SessionAbstract
         $view->assign('approvedPosts', $approvedPosts);
         $view->assign('pendingPosts', $pendingPosts);
     }
+
+
+    public function detailView()
+    {
+        $id = $_REQUEST['id'];
+        $post = $this->getPost($id);
+        $view = new \View('detail');
+        $view->assign('post', $post);
+    }
+
+    public function editView()
+    {
+        $id = $_REQUEST['id'];
+        $post = $this->getPost($id);
+        $view = new \View('edit');
+        $view->assign('post', $post);
+    }
+
+    function getPost($id)
+    {
+        if (!$id) {
+            throw new Exception('Id not found');
+        }
+        $post = $this->conn->selectFreeRun("select * from posts where id=" . $id);
+        if (count($post) < 1) {
+            throw new Exception('Post not found');
+
+        }
+        return $post;
+        $view = new \View('detail');
+        $view->assign('post', $post);
+    }
 }

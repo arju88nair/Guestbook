@@ -39,3 +39,13 @@ $router->get('/admin', function () {
     return $homeController->adminHome();
 });
 
+$router->get('/detailView', function () {
+    $homeController = new \controllers\HomeController();
+    return $homeController->detailView();
+});
+
+$router->get('/editView', function () {
+    $homeController = new \controllers\HomeController();
+    return $homeController->editView();
+});
+
