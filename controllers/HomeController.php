@@ -27,6 +27,7 @@ class HomeController extends \SessionAbstract
 
     public function index()
     {
+
         $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=1");
         $userPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and user_id=1");
         $view = new \View('home');
@@ -60,6 +61,7 @@ class HomeController extends \SessionAbstract
             $image_name = time() . "." . $ext;
             $tmp = $_FILES['image']['tmp_name'];
             if (move_uploaded_file($tmp, 'uploads/' . $image_name)) {
+                $image_name = getcwd() . "/uploads/" . $image_name;
                 $date = date('Y-m-d H:i:s');
                 $sql = "INSERT INTO posts (title,summary,image,approved,deleted,user_id,created_at,updated_at) VALUES ('" . $title . "','" . $summary . "','" . $image_name . "',1,0,1,'" . $date . "','" . $date . "')";
                 mysqli_query($this->db, $sql);
@@ -71,5 +73,15 @@ class HomeController extends \SessionAbstract
 
         }
 
+    }
+
+
+    public function adminHome()
+    {
+        $pendingPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=0");
+        $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and approved=1");
+        $view = new \View('admin');
+        $view->assign('approvedPosts', $approvedPosts);
+        $view->assign('pendingPosts', $pendingPosts);
     }
 }

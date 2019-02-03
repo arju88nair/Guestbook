@@ -34,5 +34,8 @@ $router->post('/addPost', function () {
     return $homeController->addPost();
 });
 
-
+$router->get('/admin', function () {
+    $homeController = new \controllers\HomeController();
+    return $homeController->adminHome();
+});
 

@@ -61,12 +61,11 @@ include_once 'header.php';
     }
 </style>
 <div class="container-fluid h-100">
+    <h4>Admin control</h4>
+    <hr>
     <div class="row justify-content-center h-100">
-        <div class="col-lg-7 ">
-
-            <br>
-            <h4>Public Posts</h4>
-
+        <div class="col-lg-6 ">
+            <h4>Pending Posts</h4>
             <?php
             foreach ($approvedPosts as $approvedPost) {
                 echo '
@@ -84,26 +83,23 @@ include_once 'header.php';
             ?>
         </div>
         <hr></hr>
-        <div class="col-5 hidden-md-down" id="yellow">
-            <h4>My Posts</h4>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Add Post
-            </button>
+        <div class="col-6 hidden-md-down" id="yellow">
+            <h4>Approved Posts</h4>
             <div class="col-lg-12">
                 <br>
                 <?php
-                foreach ($userPosts as $userPost) {
-                    if ($userPost['approved']) {
+                foreach ($pendingPosts as $pendingPost) {
+                    if ($pendingPost['approved']) {
                         $button = "<i class=\"fas fa-check-circle\"></i>";
                     } else {
                         $button = "<i class=\"fas fa-times-circle\"></i>";
                     }
                     echo '
                  <div class="media">
-                <img class="mr-3" src="' . $userPost["image"] . '" alt="Generic placeholder image">
+                <img class="mr-3" src="' . $pendingPost["image"] . '" alt="Generic placeholder image">
                 <div class="media-body">
-                    <h5 class="mt-0">' . $userPost["title"] . '</h5>
-                    ' . substr($userPost["summary"], 0, 120) . '...' . '
+                    <h5 class="mt-0">' . $pendingPost["title"] . '</h5>
+                    ' . substr($pendingPost["summary"], 0, 120) . '...' . '
                     <br>
                     <div class="d-flex justify-content-between">
                         <div>
@@ -111,7 +107,7 @@ include_once 'header.php';
                             ' . $button . '
                         </div>
                           <div>
-                             ' . substr($userPost["created_at"], 0, -8) . " " . '&nbsp;
+                             ' . substr($pendingPost["created_at"], 0, -8) . " " . '&nbsp;
                           </div>
                     </div>
            </div>
