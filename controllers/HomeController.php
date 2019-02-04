@@ -124,14 +124,25 @@ class HomeController extends \SessionAbstract
                 $date = date('Y-m-d H:i:s');
                 $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,image='" . $image_name . "',approved='" . $approved . "'  where id=$id";
                 mysqli_query($this->db, $sql);
+                return $response = [
+                    'success' => true,
+                    'response' => "Success"
+                ];
             } else {
-
+                return $response = [
+                    'success' => false,
+                    'response' => "Something went wrong"
+                ];
             }
 
         } else {
             $date = date('Y-m-d H:i:s');
             $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,approved='" . $approved . "' where id=$id";
             mysqli_query($this->db, $sql);
+            return $response = [
+                'success' => true,
+                'response' => "Success"
+            ];
         }
 
     }
