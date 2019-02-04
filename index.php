@@ -1,51 +1,52 @@
 <?php
 
-include_once 'routes/Request.php';
-include_once 'routes/Router.php';
 include_once 'controllers/UserController.php';
 include_once 'controllers/HomeController.php';
-$router = new Router(new Request);
 
 
-$router->get('/', function () {
-    $userController = new \controllers\UserController();
-    return $userController->index();
-});
-
-$router->get('/home', function () {
-    $homeController = new \controllers\HomeController();
-    return $homeController->index();
-});
-
-
-$router->post('/register', function () {
-    $userController = new \controllers\UserController();
-    return $userController->doRegister();
-});
-
-$router->post('/login', function () {
-    $userController = new \controllers\UserController();
-    return $userController->doLogin();
-});
-
-
-$router->post('/addPost', function () {
-    $homeController = new \controllers\HomeController();
-    return $homeController->addPost();
-});
-
-$router->get('/admin', function () {
-    $homeController = new \controllers\HomeController();
-    return $homeController->adminHome();
-});
-
-$router->get('/detailView', function () {
-    $homeController = new \controllers\HomeController();
-    return $homeController->detailView();
-});
-
-$router->get('/editView', function () {
-    $homeController = new \controllers\HomeController();
-    return $homeController->editView();
-});
-
+// Grabs the URI and breaks it apart in case we have querystring stuff
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
+    return false;    // serve the requested resource as-is.
+}
+// Route it up!
+switch ($request_uri[0]) {
+    // Home page
+    case '/':
+        $userController = new \controllers\UserController();
+        return $userController->index();
+        break;
+    // About page
+    case '/home':
+        $homeController = new \controllers\HomeController();
+        return $homeController->index();
+        break;
+    case '/register':
+        $userController = new \controllers\UserController();
+        return $userController->doRegister();
+        break;
+    case '/login':
+        $userController = new \controllers\UserController();
+        return $userController->doLogin();
+        break;
+    case '/addPost':
+        $homeController = new \controllers\HomeController();
+        return $homeController->addPost();
+        break;
+    case '/admin':
+        $homeController = new \controllers\HomeController();
+        return $homeController->adminHome();
+        break;
+    case '/detailView':
+        $homeController = new \controllers\HomeController();
+        return $homeController->detailView();
+        break;
+    case '/editView':
+        $homeController = new \controllers\HomeController();
+        return $homeController->editView();
+        break;
+    default:
+        header('Location : ');
+        require '../views/404.php';
+        break;
+}
