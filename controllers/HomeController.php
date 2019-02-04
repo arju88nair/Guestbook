@@ -94,12 +94,46 @@ class HomeController extends \SessionAbstract
         $view->assign('post', $post);
     }
 
-    public function editView()
+    public function editPost()
     {
-        $id = $_REQUEST['id'];
-        $post = $this->getPost($id);
-        $view = new \View('edit');
-        $view->assign('post', $post);
+        $id = $_GET['id'];
+        $title = mysqli_real_escape_string($this->db, $_POST['title']);
+        $summary = mysqli_real_escape_string($this->db, $_POST['summary']);
+
+        $errors = [];
+        // form validation: ensure that the form is correctly filled ...
+        // by adding (array_push()) corresponding error unto $errors array
+        if (empty($summary)) {
+            array_push($errors, "Title is required");
+        }
+        if (empty($title)) {
+            array_push($errors, "Summary is required");
+        }
+
+
+        if (isset($_POST) && !empty($_FILES['image']['name'])) {
+
+            $name = $_FILES['image']['name'];
+
+
+            list($txt, $ext) = explode(".", $name);
+            $image_name = time() . "." . $ext;
+            $tmp = $_FILES['image']['tmp_name'];
+            if (move_uploaded_file($tmp, 'uploads/' . $image_name)) {
+                $image_name = "/uploads/" . $image_name;
+                $date = date('Y-m-d H:i:s');
+                $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,image='" . $image_name . "'  where id=$id";
+                mysqli_query($this->db, $sql);
+            } else {
+
+            }
+
+        } else {
+            $date = date('Y-m-d H:i:s');
+            $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "'  where id=$id";
+            mysqli_query($this->db, $sql);
+        }
+
     }
 
     function getPost($id)
@@ -107,7 +141,7 @@ class HomeController extends \SessionAbstract
         if (!$id) {
             throw new Exception('Id not found');
         }
-        $post = $this->conn->selectFreeRun("select * from posts p join users u on u.id=p.user_id where p.id =".$id."  limit 1");
+        $post = $this->conn->selectFreeRun("select * from posts p join users u on u.id=p.user_id where p.id =" . $id . "  limit 1");
         if (count($post) < 1) {
             throw new Exception('Post not found');
 

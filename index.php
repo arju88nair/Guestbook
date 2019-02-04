@@ -39,7 +39,7 @@ switch ($request_uri[0]) {
         $homeController = new \controllers\HomeController();
         return $homeController->detailView();
         break;
-    case '/editView':
+    case '/editPost':
         $homeController = new \controllers\HomeController();
         return $homeController->editView();
         break;

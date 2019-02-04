@@ -89,7 +89,7 @@ include_once 'header.php';
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form action="/addPost" method="post" enctype="multipart/form-data">
+                    <form action="/editPost" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="email">Title:</label>
                             <input type="text" class="form-control" id="title"
@@ -126,9 +126,7 @@ include_once 'header.php';
             </div>
         </div>
     </div>
-
     <!-- /.row -->
-
 </div>
 <!-- /.container -->
 <script src="/resources/js/upload.js"></script>
