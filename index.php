@@ -3,20 +3,18 @@
 include_once 'controllers/UserController.php';
 include_once 'controllers/HomeController.php';
 
-
 // Grabs the URI and breaks it apart in case we have querystring stuff
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
-if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
+if (preg_match('/\.(?:png|jpg|jpeg|gif|js|css)$/', $_SERVER["REQUEST_URI"])) {
     return false;    // serve the requested resource as-is.
 }
-// Route it up!
+
+// Routing it up!
 switch ($request_uri[0]) {
-    // Home page
     case '/':
         $userController = new \controllers\UserController();
         return $userController->index();
         break;
-    // About page
     case '/home':
         $homeController = new \controllers\HomeController();
         return $homeController->index();

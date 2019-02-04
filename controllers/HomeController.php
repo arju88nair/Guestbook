@@ -29,7 +29,7 @@ class HomeController extends \SessionAbstract
     {
 
         $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=1");
-        $userPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and user_id=1");
+        $userPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and user_id=6");
         $view = new \View('home');
         $view->assign('approvedPosts', $approvedPosts);
         $view->assign('userPosts', $userPosts);
@@ -107,13 +107,14 @@ class HomeController extends \SessionAbstract
         if (!$id) {
             throw new Exception('Id not found');
         }
-        $post = $this->conn->selectFreeRun("select * from posts where id=" . $id);
+        $post = $this->conn->selectFreeRun("select * from posts p join users u on u.id=p.user_id where p.id =".$id."  limit 1");
         if (count($post) < 1) {
             throw new Exception('Post not found');
 
         }
-        return $post;
+        return $post[0];
         $view = new \View('detail');
         $view->assign('post', $post);
     }
+
 }
