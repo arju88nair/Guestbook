@@ -99,6 +99,8 @@ class HomeController extends \SessionAbstract
         $id = $_GET['id'];
         $title = mysqli_real_escape_string($this->db, $_POST['title']);
         $summary = mysqli_real_escape_string($this->db, $_POST['summary']);
+        $approved = mysqli_real_escape_string($this->db, $_POST['approved']);
+
 
         $errors = [];
         // form validation: ensure that the form is correctly filled ...
@@ -114,15 +116,13 @@ class HomeController extends \SessionAbstract
         if (isset($_POST) && !empty($_FILES['image']['name'])) {
 
             $name = $_FILES['image']['name'];
-
-
             list($txt, $ext) = explode(".", $name);
             $image_name = time() . "." . $ext;
             $tmp = $_FILES['image']['tmp_name'];
             if (move_uploaded_file($tmp, 'uploads/' . $image_name)) {
                 $image_name = "/uploads/" . $image_name;
                 $date = date('Y-m-d H:i:s');
-                $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,image='" . $image_name . "'  where id=$id";
+                $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,image='" . $image_name . "',approved='" . $approved . "'  where id=$id";
                 mysqli_query($this->db, $sql);
             } else {
 
@@ -130,7 +130,7 @@ class HomeController extends \SessionAbstract
 
         } else {
             $date = date('Y-m-d H:i:s');
-            $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "'  where id=$id";
+            $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,approved='" . $approved . "' where id=$id";
             mysqli_query($this->db, $sql);
         }
 

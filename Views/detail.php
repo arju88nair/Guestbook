@@ -101,6 +101,11 @@ include_once 'header.php';
                                       name="summary"><?php echo $post['summary'] ?></textarea>
                         </div>
                         <div class="form-group">
+                            <label for="email">Approved:</label>
+                            <input type="checkbox" name="approved" id="approved"
+                                   value="yes" <?php echo($post['approved'] == 1 ? 'checked' : ''); ?> />
+                        </div>
+                        <div class="form-group">
                             <label>Upload Image</label>
                             <div class="input-group">
                             <span class="input-group-btn">
