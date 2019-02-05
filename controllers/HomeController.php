@@ -38,7 +38,7 @@ class HomeController extends \Controller
 
     public function addPost()
     {
-        
+
         $title = mysqli_real_escape_string($this->db, $_POST['title']);
         $summary = mysqli_real_escape_string($this->db, $_POST['summary']);
 
@@ -156,7 +156,6 @@ class HomeController extends \Controller
         $post = $this->conn->selectFreeRun("select * from posts p join users u on u.id=p.user_id where p.id =" . $id . "  limit 1");
         if (count($post) < 1) {
             throw new Exception('Post not found');
-
         }
         return $post[0];
         $view = new \View('detail');

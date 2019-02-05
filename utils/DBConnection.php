@@ -18,7 +18,11 @@ Class DBConnection
      */
     public function getDbConnect()
     {
-        $this->conn = mysqli_connect("127.0.0.1", "root", "", "Guestbook") or die("Couldn't connect");
+        $config = parse_ini_file('config.ini');
+        $this->conn = mysqli_connect($config['server'], $config['username'], $config['password'], $config['db']);
+        if (!$this->conn) {
+            die("Failed to connect to Database");
+        }
         return $this->conn;
     }
 
@@ -30,47 +34,37 @@ Class DBConnection
         mysqli_close($this->conn) or die("There was a problem disconnecting from the database.");;
     }
 
+
+    /**
+     * Returns the query result of a generic select query
+     * @param $query
+     * @return array
+     */
     function selectFreeRun($query)
     {
-
         $result = mysqli_query($this->conn, $query);
         $this->dataSet = [];
-
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 array_push($this->dataSet, $row);
             }
         }
         return $this->dataSet;
-
     }
 
+    /**
+     * @param $table
+     * @param $field
+     * @param $data
+     */
 
-    function insertInto($tableName, $values)
+    function Insertdata($table, $field, $data)
     {
-        $i = NULL;
-
-        $this->sqlQuery = 'INSERT INTO ' . $tableName . ' VALUES (';
-        $i = 0;
-        while ($values[$i]["val"] != NULL && $values[$i]["type"] != NULL) {
-            if ($values[$i]["type"] == "char") {
-                $this->sqlQuery .= "'";
-                $this->sqlQuery .= $values[$i]["val"];
-                $this->sqlQuery .= "'";
-            } else if ($values[$i]["type"] == 'int') {
-                $this->sqlQuery .= $values[$i]["val"];
-            }
-            $i++;
-            if ($values[$i]["val"] != NULL) {
-                $this->sqlQuery .= ',';
-            }
-        }
-        $this->sqlQuery .= ')';
-        return $this->sqlQuery;die;
-        #echo $this -> sqlQuery;
-        mysqli_query($this->sqlQuery, $this->conn);
-        return $this->sqlQuery;
-        #$this -> sqlQuery = NULL;
+        $field_values = implode(',', $field);
+        $data_values = implode("','", $data);
+        $sql = "INSERT INTO $table (" . $field_values . ") 
+    VALUES ('" . $data_values . "') ";
+        $result = $this->conn->query($sql);
     }
 }
 

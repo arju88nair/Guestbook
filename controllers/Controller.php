@@ -8,6 +8,7 @@
  */
 
 include_once 'utils/DBConnection.php';
+include_once 'utils/Database.php';
 
 class Controller
 {
@@ -15,11 +16,11 @@ class Controller
 
     /**
      * Controller constructor. Handling construct methods like DB connection and cookie/session handling
+     * Can add more methods
      */
     protected function __construct()
     {
         $this->_isLoggedIn();
-        $this->_dbConnection();
     }
 
     /**
@@ -28,19 +29,13 @@ class Controller
     public function _isLoggedIn()
     {
         $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
-        if (!isset($_COOKIE["id"]) && $request_uri[0] !== "/") {
-            header("location: /");
+        if($_SERVER['REQUEST_METHOD'] !== "POST")
+        {
+            if (!isset($_COOKIE["id"]) && $request_uri[0] !== "/") {
+                header("location: /");
+            }
         }
+
     }
 
-    /**
-     * Mysql DB connection
-     * @return mysqli
-     */
-    private function _dbConnection()
-    {
-        $DbObj = new \DBConnection();
-        $this->db = $DbObj->getDbConnect();
-        return $this->db;
-    }
 }
