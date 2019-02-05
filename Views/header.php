@@ -12,7 +12,14 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <!-- Brand/logo -->
-    <a class="navbar-brand" href="/">Guest Book</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Acme</a>
+    <div class="collapse navbar-collapse justify-content-end" id="navbar">
 
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/logout">Logout</a>
+        </div>
+    </div>
 </nav>

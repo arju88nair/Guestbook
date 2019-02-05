@@ -28,6 +28,7 @@ class UserController extends \Controller
      */
     public function index()
     {
+
         $view = new \View('register');
     }
 
@@ -104,12 +105,19 @@ class UserController extends \Controller
 
         if (count($errors) == 0) {
             $password = md5($password);
-            $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+            $query = "SELECT * FROM users WHERE email='$email' AND password='$password' limit 1";
             $results = mysqli_query($this->db, $query);
             if (mysqli_num_rows($results) == 1) {
-                $_SESSION['username'] = $email;
-                $_SESSION['success'] = "You are now logged in";
-                header('location: /');
+                $row = mysqli_fetch_assoc($results);
+                $isAdmin = $row['is_admin'];
+                $id = $row['id'];
+                setcookie("id", $id, time() + 3600);
+                setcookie("type", $isAdmin, time() + 3600);
+                if ($isAdmin) {
+                    header('location: /admin');
+                    return false;
+                }
+                header('location: /home');
             } else {
                 array_push($errors, "Wrong username/password combination");
                 $view = new \View('register');
@@ -117,5 +125,12 @@ class UserController extends \Controller
             }
         }
 
+    }
+
+    public function doLogout()
+    {
+        setcookie("id", "", time() - 3600);
+        setcookie("type", "", time() - 3600);
+        header("location:/");
     }
 }

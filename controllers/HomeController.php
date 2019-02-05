@@ -38,6 +38,7 @@ class HomeController extends \Controller
 
     public function addPost()
     {
+        
         $title = mysqli_real_escape_string($this->db, $_POST['title']);
         $summary = mysqli_real_escape_string($this->db, $_POST['summary']);
 
@@ -61,7 +62,7 @@ class HomeController extends \Controller
             $image_name = time() . "." . $ext;
             $tmp = $_FILES['image']['tmp_name'];
             if (move_uploaded_file($tmp, 'uploads/' . $image_name)) {
-                $image_name = getcwd() . "/uploads/" . $image_name;
+                $image_name = "/uploads/" . $image_name;
                 $date = date('Y-m-d H:i:s');
                 $sql = "INSERT INTO posts (title,summary,image,approved,deleted,user_id,created_at,updated_at) VALUES ('" . $title . "','" . $summary . "','" . $image_name . "',1,0,1,'" . $date . "','" . $date . "')";
                 mysqli_query($this->db, $sql);

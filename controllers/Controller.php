@@ -18,9 +18,29 @@ class Controller
      */
     protected function __construct()
     {
+        $this->_isLoggedIn();
+        $this->_dbConnection();
+    }
+
+    /**
+     * Checking if the login cookie is present
+     */
+    public function _isLoggedIn()
+    {
+        $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+        if (!isset($_COOKIE["id"]) && $request_uri[0] !== "/") {
+            header("location: /");
+        }
+    }
+
+    /**
+     * Mysql DB connection
+     * @return mysqli
+     */
+    private function _dbConnection()
+    {
         $DbObj = new \DBConnection();
         $this->db = $DbObj->getDbConnect();
         return $this->db;
-
     }
 }
