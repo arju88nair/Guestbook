@@ -71,13 +71,14 @@ class UserController extends \Controller
         if (count($errors) == 0) {
             $password = md5($password);//encrypt the password before saving in the database
             $table = "users";
-            $field = array("username", "email", "password","is_admin");
-            $data = array($username, $email, $password,0);
+            $field = array("username", "email", "password", "is_admin");
+            $data = array($username, $email, $password, 0);
             $result = $this->conn->Insertdata($table, $field, $data);
             if ($result) {
-                $_SESSION['username'] = $username;
-                $_SESSION['success'] = "You are now logged in";
-                header('location: /');
+                $success=[];
+                array_push($success, "Successfully signed up");
+                $view = new \View('register');
+                $view->assign('success', $success);
             } else {
                 array_push($errors, "Something went wrong");
                 $view = new \View('register');
@@ -108,6 +109,7 @@ class UserController extends \Controller
         }
         if (count($errors) == 0) {
             $password = md5($password);
+            // Checking for the specific user
             $results = $user = $this->conn->selectFreeRun("SELECT * FROM users WHERE email='$email' AND password='$password' limit 1");;
             $results = $results[0];
             if ($results) {

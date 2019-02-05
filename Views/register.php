@@ -191,8 +191,15 @@ if (count($data) > 0) {
   <strong>Erorr!</strong> $error.
 </div>";
     }
+}
 
-
+if (count($success) > 0) {
+    foreach ($success as $item) {
+        echo "  <div class=\"alert alert-success alert-dismissible\">
+  <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+  <strong>Erorr!</strong> $item.
+</div>";
+    }
 }
 ?>
 <div class="form-wrap">
@@ -220,8 +227,10 @@ if (count($data) > 0) {
 
         <div id="login-tab-content">
             <form class="login-form" action="/login" method="post">
-                <input type="text" class="input" id="user_login" name="user_email" autocomplete="off" placeholder="Email or Username">
-                <input type="password" class="input" id="user_pass" name="user_pass" autocomplete="off" placeholder="Password">
+                <input type="text" class="input" id="user_login" name="user_email" autocomplete="off"
+                       placeholder="Email or Username">
+                <input type="password" class="input" id="user_pass" name="user_pass" autocomplete="off"
+                       placeholder="Password">
                 <input type="submit" class="button" value="Login">
             </form><!--.login-form-->
             <div class="help-text">
