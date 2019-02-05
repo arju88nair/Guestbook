@@ -6,10 +6,9 @@
 
 namespace controllers;
 include_once 'utils/ViewMain.php';
-include_once 'utils/SessionAbstract.php';
-include_once 'utils/DBConnection.php';
+include_once 'Controller.php';
 
-class UserController extends \SessionAbstract
+class UserController extends \Controller
 {
     private $db;
 

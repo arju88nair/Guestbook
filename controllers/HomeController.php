@@ -8,7 +8,7 @@
 namespace controllers;
 
 
-class HomeController extends \SessionAbstract
+class HomeController extends \Controller
 {
     private $db;
     private $conn;

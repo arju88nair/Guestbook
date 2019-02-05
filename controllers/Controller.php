@@ -7,13 +7,14 @@
  * Written by Nair, 30/1/19 2:36 PM
  */
 
+include_once 'utils/DBConnection.php';
 
-abstract class SessionAbstract
+class Controller
 {
     private $db;
 
     /**
-     * SessionAbstract constructor. Handling construct methods like DB connection and cookie/session handling
+     * Controller constructor. Handling construct methods like DB connection and cookie/session handling
      */
     protected function __construct()
     {
