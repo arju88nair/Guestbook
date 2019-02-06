@@ -11,9 +11,12 @@ CREATE TABLE `Guestbook`.`posts` (
   `id` INT UNSIGNED NOT NULL,
   `title` VARCHAR(155) NULL,
   `summary` VARCHAR(255) NULL,
-  `approved` BIT(1) NULL,
-  `deleted` BIT(1) NULL,
+  `approved` TINYINT(2) NULL,
+  `deleted` TINYINT(2) NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   `image` VARCHAR(155) NULL,
-  PRIMARY KEY (`id`));
+  `user_id` INT(10) NULL,
+  PRIMARY KEY (`id`)),
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+;

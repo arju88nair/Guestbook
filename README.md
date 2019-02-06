@@ -1,0 +1,20 @@
+# Guestbook
+
+A simple example of a user base Guestbook where users will be able to add posts about their entries which is implemented on core PHP and MySQL
+
+## Requisites
+
+```
+PHP 5.6+
+MySQL
+
+```
+---
+## Setup
+```
+git clone git@github.com:arju88nair/Guestbook.git (Make sure the SSH keys are configured or else go for the HTTPS url)
+php -f Datbase.php
+php -S  localhost:8080  index.php 
+```
+
+The `Database.php` script will create a dummy admin user.
