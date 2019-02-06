@@ -3,13 +3,19 @@
 include_once 'controllers/UserController.php';
 include_once 'controllers/HomeController.php';
 
+
 // Grabs the URI and breaks it apart in case we have querystring stuff
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+
+// Checking for resources and image files to route it differently
 if (preg_match('/\.(?:png|jpg|jpeg|gif|js|css)$/', $_SERVER["REQUEST_URI"])) {
-    return false;    // serve the requested resource as-is.
+    return false;    // Serve the requested resource as-is.
 }
+
+// Instance of the controllers
 $homeController = new \controllers\HomeController();
 $userController = new \controllers\UserController();
+
 // Routing it up!
 switch ($request_uri[0]) {
     case '/':
@@ -40,6 +46,6 @@ switch ($request_uri[0]) {
         return $userController->doLogout();
         break;
     default:
-        echo "sdsdd";
+        echo "404 not found";
         break;
 }

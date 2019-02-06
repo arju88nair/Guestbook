@@ -15,7 +15,6 @@ class View
     {
         try {
             $file = 'Views/' . strtolower($template) . '.php';
-
             if (file_exists($file)) {
                 $this->render = $file;
             } else {

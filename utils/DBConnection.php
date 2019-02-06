@@ -65,6 +65,7 @@ Class DBConnection
         $sql = "INSERT INTO $table (" . $field_values . ") 
     VALUES ('" . $data_values . "') ";
         $result = $this->conn->query($sql);
+        return $result;
     }
 }
 

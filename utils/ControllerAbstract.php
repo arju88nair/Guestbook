@@ -9,6 +9,7 @@ abstract class ControllerAbstract
 {
     protected $db;
     protected $conn;
+    protected $userId;
 
     /**
      * Controller constructor. Handling construct methods like DB connection and cookie/session handling

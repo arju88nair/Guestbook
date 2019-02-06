@@ -1,7 +1,7 @@
 <?php
-include_once 'header.php';
+include_once 'partials/header.php';
 ?>
-
+<link rel="stylesheet" href="/resources/css/upload.css">
 
 <div class="container-fluid h-100">
     <div class="row justify-content-center h-100">
@@ -26,14 +26,14 @@ include_once 'header.php';
             }
             ?>
         </div>
-        <hr></hr>
         <div class="col-5 hidden-md-down" id="yellow">
-            <h4>My Posts</h4>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Add Post
-            </button>
+            <br>
+            <h4>My Posts
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Add Post
+                </button>
+            </h4>
             <div class="col-lg-12">
-                <br>
                 <?php
                 foreach ($userPosts as $userPost) {
                     if ($userPost['approved']) {
@@ -93,7 +93,8 @@ include_once 'header.php';
                             <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file">
-                                    Browse… <input type="file" id="imgInp" name="image">
+                                    Browse… <input type="file" id="imgInp" name="image"
+                                                   accept="image/x-png,image/gif,image/jpeg">
                                 </span>
                             </span>
                                 <input type="text" class="form-control" readonly>
@@ -115,8 +116,6 @@ include_once 'header.php';
         </div>
     </div>
 </div>
-<script src="/resources/js/upload.js" ></script>
-<link rel="stylesheet" href="/resources/css/upload.css">
-
+<script src="/resources/js/upload.js"></script>
 </body>
 </html>

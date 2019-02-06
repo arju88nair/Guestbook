@@ -9,9 +9,9 @@ include_once 'utils/ViewMain.php';
 include_once 'utils/ControllerAbstract.php';
 include_once 'Controller.php';
 
+
 class UserController extends \ControllerAbstract
 {
-
 
     /**
      * UserController constructor.
@@ -127,6 +127,10 @@ class UserController extends \ControllerAbstract
 
     }
 
+    
+    /**
+     * Doing logout
+     */
     public function doLogout()
     {
         setcookie("id", "", time() - 3600);

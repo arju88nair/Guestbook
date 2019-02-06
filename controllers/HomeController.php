@@ -8,28 +8,28 @@
 namespace controllers;
 include_once 'utils/ControllerAbstract.php';
 
-
 class HomeController extends \ControllerAbstract
 {
 
-
+    //TODO for better error handling in the future similar to register page or something else
 
     /**
      * UserController constructor.
      */
+
+    public $userId;
+
     public function __construct()
     {
         parent::__construct();
-        $this->conn = new \DBConnection();
-        $this->db = $this->conn->getDbConnect();
+        $this->userId = $_COOKIE['id'];
     }
 
 
     public function index()
     {
-
         $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=1");
-        $userPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and user_id=6");
+        $userPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and user_id=" . $this->userId);
         $view = new \View('home');
         $view->assign('approvedPosts', $approvedPosts);
         $view->assign('userPosts', $userPosts);
@@ -51,27 +51,38 @@ class HomeController extends \ControllerAbstract
         if (empty($title)) {
             array_push($errors, "Summary is required");
         }
+        $image_name = "https://www.foot.com/wp-content/uploads/2017/06/placeholder-square.jpg"; // Placeholder
 
-
+        // Uploading file
         if (isset($_POST) && !empty($_FILES['image']['name'])) {
-
             $name = $_FILES['image']['name'];
-
-
             list($txt, $ext) = explode(".", $name);
             $image_name = time() . "." . $ext;
             $tmp = $_FILES['image']['tmp_name'];
+            // Checking file type
+            $file_type = $_FILES['image']['type']; //returns the mimetype
+            $allowed = array("image/jpeg", "image/gif", "image/png");
+            if (!in_array($file_type, $allowed)) {
+                die("Only jpg, gif, and png files are allowed.");
+            }
             if (move_uploaded_file($tmp, 'uploads/' . $image_name)) {
                 $image_name = "/uploads/" . $image_name;
-                $date = date('Y-m-d H:i:s');
-                $sql = "INSERT INTO posts (title,summary,image,approved,deleted,user_id,created_at,updated_at) VALUES ('" . $title . "','" . $summary . "','" . $image_name . "',1,0,1,'" . $date . "','" . $date . "')";
-                mysqli_query($this->db, $sql);
-                header("Location: /home");
             } else {
-                $_SESSION['error'] = 'image uploading failed';
-                header("Location: http://localhost:8000");
+                die("Something went wrong while uploading image");
             }
 
+        }
+        $this->userId = $_COOKIE['id'];
+        $date = date('Y-m-d H:i:s');
+        // Insert the data to the post table
+        $table = "posts";
+        $field = array("title", "summary", "image", "approved", "deleted", "user_id", "created_at", "updated_at");
+        $data = array($title, $summary, $image_name, 0, 0, $this->userId, $date, $date);
+        $result = $this->conn->Insertdata($table, $field, $data);
+        if ($result) {
+            header("Location: /home");
+        } else {
+            die("Something went wrong");
         }
 
     }
@@ -135,7 +146,6 @@ class HomeController extends \ControllerAbstract
                     'response' => "Something went wrong"
                 ];
             }
-
         } else {
             $date = date('Y-m-d H:i:s');
             $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,approved='" . $approved . "' where id=$id";
@@ -148,7 +158,7 @@ class HomeController extends \ControllerAbstract
 
     }
 
-    function getPost($id)
+    private function getPost($id)
     {
         if (!$id) {
             throw new Exception('Id not found');
@@ -158,8 +168,7 @@ class HomeController extends \ControllerAbstract
             throw new Exception('Post not found');
         }
         return $post[0];
-        $view = new \View('detail');
-        $view->assign('post', $post);
+
     }
 
 }
