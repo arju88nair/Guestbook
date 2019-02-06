@@ -14,6 +14,7 @@ MySQL
 ```
 git clone git@github.com:arju88nair/Guestbook.git (Make sure the SSH keys are configured or else go for the HTTPS url)
 php -f Datbase.php
+Create uploads folder in the root with required permissions
 php -S  localhost:8080  index.php 
 ```
 

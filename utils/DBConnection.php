@@ -69,6 +69,12 @@ Class DBConnection
     }
 
 
+    /** A handy,crude method like above to handle update methods
+     * @param $table
+     * @param $data
+     * @param $where
+     * @return mixed
+     */
     function updateData($table, $data, $where)
     {
         $cols = array();
@@ -76,10 +82,6 @@ Class DBConnection
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $table SET " . implode(', ', $cols) . " WHERE $where";
-        echo "<pre>";
-        print_r($sql);
-        echo "</pre>";
-        die;
         $result = $this->conn->query($sql);
         return $result;
     }

@@ -50,7 +50,7 @@ if (mysqli_query($conn, $sql)) {
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   `image` VARCHAR(155) NULL,
-  `user_id` INT(10) NULL,
+  `user_id` INT(11) NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES users(`id`))";
 

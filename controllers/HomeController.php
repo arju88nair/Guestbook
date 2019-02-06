@@ -11,7 +11,6 @@ include_once 'utils/ControllerAbstract.php';
 class HomeController extends \ControllerAbstract
 {
 
-    //TODO for better error handling in the future similar to register page or something else
     public $userId;
 
 
@@ -95,7 +94,6 @@ class HomeController extends \ControllerAbstract
             } else {
                 die("Something went wrong while uploading image");
             }
-
         }
         $this->userId = $_COOKIE['id'];
         $date = date('Y-m-d H:i:s');
@@ -136,9 +134,7 @@ class HomeController extends \ControllerAbstract
         $approved = (boolean)mysqli_real_escape_string($this->db, $_POST['approved']);
 
 
-        $errors = [];
         // form validation: ensure that the form is correctly filled ...
-        // by adding (array_push()) corresponding error unto $errors array
 
         if (empty($title)) {
             die("Title is required");
