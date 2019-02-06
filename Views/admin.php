@@ -65,14 +65,14 @@ include_once 'partials/header.php';
     <hr>
     <div class="row justify-content-center h-100">
         <div class="col-lg-6 ">
-            <h4>Pending Posts</h4>
+            <h4>Approved Posts</h4>
             <?php
             foreach ($approvedPosts as $approvedPost) {
                 echo '
                  <div class="media">
                 <img class="mr-3" src="' . $approvedPost["image"] . '" alt="Generic placeholder image">
                 <div class="media-body">
-                    <h5 class="mt-0">' . $approvedPost["title"] . '</h5>
+                    <h5 class="mt-0"><a href="/detailView?id=' . $approvedPost["id"] . '">' . $approvedPost["title"] . '</a></h5>
                     ' . substr($approvedPost["summary"], 0, 300) . '...' . '
                      <br>
                     <div class="float-right">' . substr($approvedPost["created_at"], 0, -8) . " " . '&nbsp;</div><br>
@@ -82,11 +82,10 @@ include_once 'partials/header.php';
             }
             ?>
         </div>
-        <hr></hr>
+        <hr>
         <div class="col-6 hidden-md-down" id="yellow">
-            <h4>Approved Posts</h4>
+            <h4>Pending Posts</h4>
             <div class="col-lg-12">
-                <br>
                 <?php
                 foreach ($pendingPosts as $pendingPost) {
                     if ($pendingPost['approved']) {
@@ -98,7 +97,7 @@ include_once 'partials/header.php';
                  <div class="media">
                 <img class="mr-3" src="' . $pendingPost["image"] . '" alt="Generic placeholder image">
                 <div class="media-body">
-                    <h5 class="mt-0">' . $pendingPost["title"] . '</h5>
+                    <h5 class="mt-0"><a href="/detailView?id=' . $pendingPost["id"] . '">' . $pendingPost["title"] . '</a></h5>
                     ' . substr($pendingPost["summary"], 0, 120) . '...' . '
                     <br>
                     <div class="d-flex justify-content-between">

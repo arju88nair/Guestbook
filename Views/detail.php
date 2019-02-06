@@ -26,9 +26,14 @@ include_once 'partials/header.php';
             <p>Posted on <?php echo $post['created_at'] ?></p>
 
             <hr>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            <?php
+            if ($_COOKIE['type'])
+                echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\">
                 Edit Post
-            </button>
+            </button>";
+
+            ?>
+
             <hr>
 
 
@@ -68,11 +73,7 @@ include_once 'partials/header.php';
             </script>
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered
                     by Disqus.</a></noscript>
-
-
             <!-- Comments -->
-
-
         </div>
 
 
@@ -94,6 +95,10 @@ include_once 'partials/header.php';
                             <label for="email">Title:</label>
                             <input type="text" class="form-control" id="title"
                                    value="<?php echo $post['title'] ?>" name="title">
+                            <input type="hidden"
+                                   class="form-control"
+                                   value="<?php echo $post['id'] ?>"
+                                   name="postId">
                         </div>
                         <div class="form-group">
                             <label for="email">Summary:</label>
@@ -110,11 +115,13 @@ include_once 'partials/header.php';
                             <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file">
-                                    Browse… <input type="file" id="imgInp" name="image">
+                                    Browse… <input type="file" id="imgInp" name="image"
+                                                   accept="image/x-png,image/gif,image/jpeg">
                                 </span>
                             </span>
                                 <input type="text" class="form-control" readonly>
                             </div>
+                            <br>
                             <img id='img-upload' src="<?php echo $post['image'] ?>"/>
                         </div>
 

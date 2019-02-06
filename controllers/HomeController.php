@@ -12,13 +12,12 @@ class HomeController extends \ControllerAbstract
 {
 
     //TODO for better error handling in the future similar to register page or something else
+    public $userId;
+
 
     /**
      * UserController constructor.
      */
-
-    public $userId;
-
     public function __construct()
     {
         parent::__construct();
@@ -26,6 +25,9 @@ class HomeController extends \ControllerAbstract
     }
 
 
+    /**
+     * Home route
+     */
     public function index()
     {
         $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=1");
@@ -35,6 +37,29 @@ class HomeController extends \ControllerAbstract
         $view->assign('userPosts', $userPosts);
 
     }
+
+
+    /**
+     * Admin route
+     */
+    public function adminHome()
+    {
+        $userController = new UserController();
+        $isAdmin = $userController->isAdmin();
+        if (!$isAdmin || !isset($_COOKIE['id'])) {
+            die("You need a bit more permission to ride this page");
+        }
+        $pendingPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=0");
+        $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and approved=1");
+        $view = new \View('admin');
+        $view->assign('approvedPosts', $approvedPosts);
+        $view->assign('pendingPosts', $pendingPosts);
+    }
+
+
+    /**
+     * Adding a new post
+     */
 
     public function addPost()
     {
@@ -78,26 +103,18 @@ class HomeController extends \ControllerAbstract
         $table = "posts";
         $field = array("title", "summary", "image", "approved", "deleted", "user_id", "created_at", "updated_at");
         $data = array($title, $summary, $image_name, 0, 0, $this->userId, $date, $date);
-        $result = $this->conn->Insertdata($table, $field, $data);
+        $result = $this->conn->insertData($table, $field, $data);
         if ($result) {
             header("Location: /home");
         } else {
             die("Something went wrong");
         }
-
     }
 
 
-    public function adminHome()
-    {
-        $pendingPosts = $this->conn->selectFreeRun("select * from posts where deleted=0 and approved=0");
-        $approvedPosts = $this->conn->selectFreeRun("select * from posts where deleted=0  and approved=1");
-        $view = new \View('admin');
-        $view->assign('approvedPosts', $approvedPosts);
-        $view->assign('pendingPosts', $pendingPosts);
-    }
-
-
+    /**
+     * Detail view for individual item
+     */
     public function detailView()
     {
         $id = $_REQUEST['id'];
@@ -106,64 +123,79 @@ class HomeController extends \ControllerAbstract
         $view->assign('post', $post);
     }
 
+
+    /**
+     * Editing route for admins
+     */
+
     public function editPost()
     {
-        $id = $_GET['id'];
+        $id = (int)$_POST['postId'];
         $title = mysqli_real_escape_string($this->db, $_POST['title']);
         $summary = mysqli_real_escape_string($this->db, $_POST['summary']);
-        $approved = mysqli_real_escape_string($this->db, $_POST['approved']);
+        $approved = (boolean)mysqli_real_escape_string($this->db, $_POST['approved']);
 
 
         $errors = [];
         // form validation: ensure that the form is correctly filled ...
         // by adding (array_push()) corresponding error unto $errors array
-        if (empty($summary)) {
-            array_push($errors, "Title is required");
-        }
+
         if (empty($title)) {
-            array_push($errors, "Summary is required");
+            die("Title is required");
         }
+        if (empty($summary)) {
+            die("Summary is required");
+        }
+        $date = date('Y-m-d H:i:s');
 
-
+        $sql = "";
         if (isset($_POST) && !empty($_FILES['image']['name'])) {
-
             $name = $_FILES['image']['name'];
             list($txt, $ext) = explode(".", $name);
             $image_name = time() . "." . $ext;
             $tmp = $_FILES['image']['tmp_name'];
+            // Checking file type
+            $file_type = $_FILES['image']['type']; //returns the mimetype
+            $allowed = array("image/jpeg", "image/gif", "image/png");
+            if (!in_array($file_type, $allowed)) {
+                die("Only jpg, gif, and png files are allowed.");
+            }
+
             if (move_uploaded_file($tmp, 'uploads/' . $image_name)) {
                 $image_name = "/uploads/" . $image_name;
-                $date = date('Y-m-d H:i:s');
-                $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,image='" . $image_name . "',approved='" . $approved . "'  where id=$id";
-                mysqli_query($this->db, $sql);
-                return $response = [
-                    'success' => true,
-                    'response' => "Success"
-                ];
+                $data = array("title" => $title,
+                    "summary" => $summary,
+                    "updated_at" => $date,
+                    "image" => $image_name,
+                    "approved" => $approved);
+
             } else {
-                return $response = [
-                    'success' => false,
-                    'response' => "Something went wrong"
-                ];
+                die("Something went wrong while updating image");
             }
         } else {
-            $date = date('Y-m-d H:i:s');
-            $sql = "update posts set title= '" . $title . "' ,summary = '" . $summary . "' ,updated_at='" . $date . "' ,approved='" . $approved . "' where id=$id";
-            mysqli_query($this->db, $sql);
-            return $response = [
-                'success' => true,
-                'response' => "Success"
-            ];
+            $data = array("title" => $title,
+                "summary" => $summary,
+                "updated_at" => $date,
+                "approved" => $approved);
         }
 
+        $this->conn->updateData('posts', $data, "id =" . $id);
+        mysqli_query($this->db, $sql);
+        header('Location: /admin');
     }
 
+
+    /**
+     * Common method for retrieving a post
+     * @param $id
+     * @return mixed
+     */
     private function getPost($id)
     {
         if (!$id) {
             throw new Exception('Id not found');
         }
-        $post = $this->conn->selectFreeRun("select * from posts p join users u on u.id=p.user_id where p.id =" . $id . "  limit 1");
+        $post = $this->conn->selectFreeRun("select p.id,p.title,p.image,p.summary,p.approved,p.created_at,u.username from posts p join users u on u.id=p.user_id where p.id =" . $id . "  limit 1");
         if (count($post) < 1) {
             throw new Exception('Post not found');
         }

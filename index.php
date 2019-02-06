@@ -40,7 +40,7 @@ switch ($request_uri[0]) {
         return $homeController->detailView();
         break;
     case '/editPost':
-        return $homeController->editView();
+        return $homeController->editPost();
         break;
     case '/logout':
         return $userController->doLogout();

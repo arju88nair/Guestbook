@@ -16,7 +16,7 @@ include_once 'partials/header.php';
                  <div class="media">
                 <img class="mr-3" src="' . $approvedPost["image"] . '" alt="Generic placeholder image">
                 <div class="media-body">
-                    <h5 class="mt-0">' . $approvedPost["title"] . '</h5>
+                    <h5 class="mt-0"><a href="/detailView?id=' . $approvedPost["id"] . '">' . $approvedPost["title"] . '</a></h5>
                     ' . substr($approvedPost["summary"], 0, 300) . '...' . '
                      <br>
                     <div class="float-right">' . substr($approvedPost["created_at"], 0, -8) . " " . '&nbsp;</div><br>
@@ -45,7 +45,7 @@ include_once 'partials/header.php';
                  <div class="media">
                 <img class="mr-3" src="' . $userPost["image"] . '" alt="Generic placeholder image">
                 <div class="media-body">
-                    <h5 class="mt-0">' . $userPost["title"] . '</h5>
+                    <h5 class="mt-0"><a href="/detailView?id=' . $userPost["id"] . '">' . $userPost["title"] . '</a></h5>
                     ' . substr($userPost["summary"], 0, 120) . '...' . '
                     <br>
                     <div class="d-flex justify-content-between">

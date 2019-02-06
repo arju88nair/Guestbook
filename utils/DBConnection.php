@@ -58,12 +58,28 @@ Class DBConnection
      * @param $data
      */
 
-    function Insertdata($table, $field, $data)
+    function insertData($table, $field, $data)
     {
         $field_values = implode(',', $field);
         $data_values = implode("','", $data);
         $sql = "INSERT INTO $table (" . $field_values . ") 
     VALUES ('" . $data_values . "') ";
+        $result = $this->conn->query($sql);
+        return $result;
+    }
+
+
+    function updateData($table, $data, $where)
+    {
+        $cols = array();
+        foreach ($data as $key => $val) {
+            $cols[] = "$key = '$val'";
+        }
+        $sql = "UPDATE $table SET " . implode(', ', $cols) . " WHERE $where";
+        echo "<pre>";
+        print_r($sql);
+        echo "</pre>";
+        die;
         $result = $this->conn->query($sql);
         return $result;
     }

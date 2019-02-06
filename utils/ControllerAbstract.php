@@ -34,7 +34,6 @@ abstract class ControllerAbstract
                 header("location: /");
             }
         }
-
     }
 
     /**

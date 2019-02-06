@@ -12,6 +12,7 @@ include_once 'Controller.php';
 
 class UserController extends \ControllerAbstract
 {
+    public $userId;
 
     /**
      * UserController constructor.
@@ -19,6 +20,8 @@ class UserController extends \ControllerAbstract
     public function __construct()
     {
         parent::__construct();
+        $this->userId = $_COOKIE['id'];
+
 
     }
 
@@ -69,7 +72,7 @@ class UserController extends \ControllerAbstract
             $table = "users";
             $field = array("username", "email", "password", "is_admin");
             $data = array($username, $email, $password, 0);
-            $result = $this->conn->Insertdata($table, $field, $data);
+            $result = $this->conn->insertData($table, $field, $data);
             if ($result) {
                 $success = [];
                 array_push($success, "Successfully signed up");
@@ -80,7 +83,6 @@ class UserController extends \ControllerAbstract
                 $view = new \View('register');
                 $view->assign('data', $errors);
             }
-
         } else {
             $view = new \View('register');
             $view->assign('data', $errors);
@@ -124,10 +126,9 @@ class UserController extends \ControllerAbstract
                 $view->assign('data', $errors);
             }
         }
-
     }
 
-    
+
     /**
      * Doing logout
      */
@@ -136,5 +137,18 @@ class UserController extends \ControllerAbstract
         setcookie("id", "", time() - 3600);
         setcookie("type", "", time() - 3600);
         header("location:/");
+    }
+
+    /**
+     * Checking if the user is admin
+     */
+    public function isAdmin()
+    {
+        $user = $this->conn->selectFreeRun("SELECT * FROM users WHERE id=$this->userId");
+        $user = $user[0];
+        if ($user['is_admin']) {
+            return true;
+        }
+        return false;
     }
 }
