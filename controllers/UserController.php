@@ -1,17 +1,16 @@
 <?php
 
 /**
- * Written by Nair, 29/1/19 8:41 PM
+ * Written by Nair
  */
 
 namespace controllers;
 include_once 'utils/ViewMain.php';
+include_once 'utils/ControllerAbstract.php';
 include_once 'Controller.php';
 
-class UserController extends \Controller
+class UserController extends \ControllerAbstract
 {
-    private $db;
-    private $conn;
 
 
     /**
@@ -20,8 +19,7 @@ class UserController extends \Controller
     public function __construct()
     {
         parent::__construct();
-        $this->conn = new \DBConnection();
-        $this->db = $this->conn->getDbConnect();
+
     }
 
     /**
@@ -38,8 +36,6 @@ class UserController extends \Controller
      */
     public function doRegister()
     {
-
-
         // receive all input values from the form
         $username = mysqli_real_escape_string($this->db, $_POST['user_name']);
         $email = mysqli_real_escape_string($this->db, $_POST['user_email']);
@@ -75,7 +71,7 @@ class UserController extends \Controller
             $data = array($username, $email, $password, 0);
             $result = $this->conn->Insertdata($table, $field, $data);
             if ($result) {
-                $success=[];
+                $success = [];
                 array_push($success, "Successfully signed up");
                 $view = new \View('register');
                 $view->assign('success', $success);

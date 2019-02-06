@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Written by Nair, 31/1/19 9:30 PM
+ * Written by Nair
  */
 
 
 namespace controllers;
+include_once 'utils/ControllerAbstract.php';
 
 
-class HomeController extends \Controller
+class HomeController extends \ControllerAbstract
 {
-    private $db;
-    private $conn;
+
 
 
     /**

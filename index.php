@@ -36,11 +36,10 @@ switch ($request_uri[0]) {
     case '/editPost':
         return $homeController->editView();
         break;
-    case '/editPost':
+    case '/logout':
         return $userController->doLogout();
         break;
     default:
-        header('Location : ');
-        require '../views/404.php';
+        echo "sdsdd";
         break;
 }
