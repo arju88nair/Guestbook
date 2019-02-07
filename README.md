@@ -25,3 +25,5 @@ The `Database.php` script will create a dummy admin user.
 - Better messaging and display for messages.
 - Proper MVC structure
 - Better conditions and checks
+- Better API instance class
+- JWT or similar token based auth for APIs
