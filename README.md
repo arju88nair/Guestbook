@@ -19,3 +19,9 @@ php -S  localhost:8080  index.php
 ```
 
 The `Database.php` script will create a dummy admin user.
+ 
+## Todo
+- Better routing.
+- Better messaging and display for messages.
+- Proper MVC structure
+- Better conditions and checks

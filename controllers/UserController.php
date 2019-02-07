@@ -5,7 +5,7 @@
  */
 
 namespace controllers;
-include_once 'utils/ViewMain.php';
+include_once 'utils/View.php';
 include_once 'utils/ControllerAbstract.php';
 include_once 'Controller.php';
 
